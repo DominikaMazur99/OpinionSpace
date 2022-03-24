@@ -1,3 +1,4 @@
+from django.contrib.auth import login, logout
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from home.forms import UserForm
@@ -13,12 +14,17 @@ def signup(request):
         form = UserForm(request.POST)
 
         if form.is_valid():
-            form.save()
+            user = form.save()
+            login(request, user)
             return redirect('home:home')
     else:
         form = UserForm()
 
     return render(request, 'home/signup.html', {'form': form})
+
+def logout_user(request):
+    logout(request)
+    return redirect('home:home')
 
 def item(request):
     AddItem = modelformset_factory(Item, fields=['name', 'description', 'authors', 'year', 'user'], max_num=1, extra=2)
