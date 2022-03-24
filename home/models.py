@@ -1,5 +1,6 @@
 from django.core.validators import MinLengthValidator
 from django.db import models
+from django.conf import settings
 from django import forms
 
 
@@ -21,5 +22,24 @@ class UserDetail(models.Model):
     address = models.CharField(max_length=200)
     def __str__(self):
         return self.username
+
+class Category(models.Model):
+    name = models.CharField(max_length=200)
+    def __str__(self):
+        return self.name
+
+class Item(models.Model):
+    name = models.CharField(max_length=200)
+    description = models.TextField(null=True)
+    authors = models.CharField(max_length=200)
+    year = models.IntegerField(null=True)
+    posted_date = models.DateTimeField(auto_now_add=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
 
 
