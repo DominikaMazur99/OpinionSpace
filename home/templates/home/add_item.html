@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+Add-item
+{% endblock %}
+
+{% block container %}
+
+    <form action="{% url 'home:add_item' %}" method="POST"`>
+
+        {% csrf_token %}
+
+        {{ add_item | crispy }}
+
+        <button type="submit" class="btn btn-primary">Add</button>
+
+    </form>
+
+
+{% endblock %}
