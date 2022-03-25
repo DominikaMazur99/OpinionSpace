@@ -13,9 +13,8 @@ Add-item
 
         {{ add_item | crispy }}
 
-        <button type="submit" class="btn btn-primary">Add</button>
+        <a href="{% url 'home:item_view' %}" class="btn btn-info" role="button">Add</a>
 
     </form>
-
 
 {% endblock %}
