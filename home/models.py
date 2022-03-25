@@ -34,8 +34,13 @@ class Item(models.Model):
     authors = models.CharField(max_length=200)
     year = models.IntegerField(null=True)
     posted_date = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(auto_now=True)
+    image = models.ImageField(upload_to='', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['-posted_date']
 
     def __str__(self):
         return self.name

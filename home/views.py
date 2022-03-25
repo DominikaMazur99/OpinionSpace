@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from home.forms import UserForm
@@ -66,6 +67,9 @@ def item(request):
 
 def item_view(request):
     if request.method == 'GET':
-        items = Item.objects.all()
+        items_list = Item.objects.all()
+        paginator = Paginator(items_list, 2)
+        page = request.GET.get('page')
+        items = paginator.get_page(page)
         ctx = {"items": items}
         return render(request, "home/item_view.html", ctx)
