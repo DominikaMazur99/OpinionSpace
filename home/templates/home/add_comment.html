@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+Add-comment
+{% endblock %}
+
+{% block container %}
+{% for entry in items %}
+    <form action="{% url 'home:item_details' entry.id %}" method="POST"`>
+{% endfor %}
+        {% csrf_token %}
+
+        {{ add_comment | crispy }}
+
+        <a class='btn btn-primary' href="{% url 'home:item_view' %}">Add</a>
+
+    </form>
+
+
+{% endblock %}
