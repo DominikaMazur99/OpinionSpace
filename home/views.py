@@ -66,10 +66,15 @@ def item(request):
     return render(request, 'home/add_item.html', {'add_item': add_item})
 
 def item_view(request):
-    if request.method == 'GET':
-        items_list = Item.objects.all()
-        paginator = Paginator(items_list, 2)
-        page = request.GET.get('page')
-        items = paginator.get_page(page)
-        ctx = {"items": items}
-        return render(request, "home/item_view.html", ctx)
+    items_list = Item.objects.all()
+    paginator = Paginator(items_list, 2)
+    page = request.GET.get('page')
+    items = paginator.get_page(page)
+    ctx = {"items": items}
+    return render(request, "home/item_view.html", ctx)
+
+
+def item_details(request,id):
+    item_details = Item.objects.get(id=id)
+    ctx = {'itemId': item_details}
+    return render(request, 'home/item_details.html', ctx)

@@ -7,7 +7,7 @@ Add-item
 
 {% block container %}
 
-    <form action="{% url 'home:add_item' %}" method="POST"`>
+    <form action="{% url 'home:item_view' %}" method="POST"`>
 
         {% csrf_token %}
 
