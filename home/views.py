@@ -1,3 +1,5 @@
+from random import random
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
@@ -5,12 +7,16 @@ from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
 from home.forms import UserForm
-from home.models import Item
-
+from home.models import Item, Comment
 
 
 def home(request):
-    return render(request, "home/home.html")
+    if request.method == 'GET':
+        items = Item.objects.all()
+        items_list = list(items)
+        ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
+        return render(request, "home/home.html", ctx)
+
 
 
 def signup(request):
@@ -76,5 +82,24 @@ def item_view(request):
 
 def item_details(request,id):
     item_details = Item.objects.get(id=id)
-    ctx = {'itemId': item_details}
+    try:
+        item_comments = Comment.objects.get(id=id)
+    except Comment.DoesNotExist:
+        item_comments = None
+
+    ctx = {'itemId': item_details, 'comments': item_comments}
     return render(request, 'home/item_details.html', ctx)
+
+def comment(request):
+    AddComment = modelformset_factory(Comment, fields=['name', 'content'], max_num=1, extra=2)
+    if request.method == 'POST':
+        add_comment = AddComment(request.POST)
+        if add_comment.is_valid():
+            add_comment.save()
+            return redirect('home:home')
+    else:
+        add_comment = AddComment(
+            queryset=Item.objects.none(),
+        )
+    return render(request, 'home/add_comment.html', {'add_comment': add_comment})
+

@@ -24,6 +24,20 @@ Item-details
 <!--          </div>-->
         </div>
         <p class="card-text">{{ itemId.description}}</p>
+        <h1>Comments...</h1>
+        {% if not comments %}
+          No comments yet...<a href="{% url 'home:add_comment' %}">Add one</a>
+        {% else %}
+            <strong>
+              {{ comments.name }} -
+              {{ comments.date_added }}
+            </strong>
+            <br/>
+              {{ comments.content }}
+            <br/><br/>
+            <br>
+            <a class='btn btn-primary' href="{% url 'home:add_comment' %}">Add comment</a>
+        {% endif %}
         <a class='btn btn-primary' href="{% url 'home:item_view' %}">Return</a>
       </div>
     </div>

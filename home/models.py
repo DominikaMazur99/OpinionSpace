@@ -45,6 +45,18 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+class Comment(models.Model):
+    content = models.TextField()
+    data_added = models.DateTimeField(auto_now_add=True)
+    name = models.ForeignKey(Item, related_name="comments", on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ['data_added']
+
+    def __str__(self):
+        return self.content
+
+
 
 
 
