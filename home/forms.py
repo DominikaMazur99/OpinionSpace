@@ -3,7 +3,8 @@ from django.forms.widgets import PasswordInput, TextInput
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
-from home.models import UserDetail
+from home.models import UserDetail, Item
+
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -37,3 +38,9 @@ class UserDetailForm(forms.ModelForm):
     class Meta:
         model = UserDetail
         fields = '__all__'
+
+
+class AddItemForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = ['name', 'description', 'authors', 'year', 'user', 'category']

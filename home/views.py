@@ -6,16 +6,13 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django.shortcuts import render, redirect
-from home.forms import UserForm
+from home.forms import UserForm, AddItemForm
 from home.models import Item, Comment
 
 
 def home(request):
     if request.method == 'GET':
-        items = Item.objects.all()
-        items_list = list(items)
-        ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
-        return render(request, "home/home.html", ctx)
+        return render(request, "home/home.html")
 
 
 
@@ -59,17 +56,15 @@ def logout_user(request):
     return redirect('home:home')
 
 def item(request):
-    AddItem = modelformset_factory(Item, fields=['name', 'description', 'authors', 'year', 'user', 'category'], max_num=1, extra=2)
     if request.method == 'POST':
-        add_item = AddItem(request.POST)
-        if add_item.is_valid():
-            add_item.save()
+        form = AddItemForm(request.POST)
+        # breakpoint()
+        if form.is_valid():
+            form.save()
             return redirect('home:home')
     else:
-        add_item = AddItem(
-            queryset=Item.objects.none(),
-        )
-    return render(request, 'home/add_item.html', {'add_item': add_item})
+        form = AddItemForm()
+    return render(request, 'home/add_item.html', {'add_item': form})
 
 def item_view(request):
     items_list = Item.objects.all()
