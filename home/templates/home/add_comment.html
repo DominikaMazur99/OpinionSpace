@@ -6,16 +6,15 @@ Add-comment
 {% endblock %}
 
 {% block container %}
-{% for entry in items %}
-    <form action="{% url 'home:item_details' entry.id %}" method="POST"`>
-{% endfor %}
+
+    <form action="" method="POST"`>
+
         {% csrf_token %}
 
         {{ add_comment | crispy }}
 
-        <a class='btn btn-primary' href="{% url 'home:item_view' %}">Add</a>
+        <button type="submit" class="btn btn-primary">Add</button>
 
     </form>
-
 
 {% endblock %}

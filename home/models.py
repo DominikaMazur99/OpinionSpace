@@ -12,6 +12,7 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+
 class UserDetail(models.Model):
     zipcode = models.CharField(max_length=200)
     username = models.CharField(max_length=200)
@@ -20,13 +21,17 @@ class UserDetail(models.Model):
     phone = models.CharField(max_length=200, validators=[MinLengthValidator(10)])
     email = models.EmailField(max_length=200)
     address = models.CharField(max_length=200)
+
     def __str__(self):
         return self.username
 
+
 class Category(models.Model):
     name = models.CharField(max_length=200)
+
     def __str__(self):
         return self.name
+
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
@@ -45,18 +50,15 @@ class Item(models.Model):
     def __str__(self):
         return self.name
 
+
 class Comment(models.Model):
     content = models.TextField()
     data_added = models.DateTimeField(auto_now_add=True)
-    name = models.ForeignKey(Item, related_name="comments", on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, related_name="comments", on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['data_added']
 
     def __str__(self):
         return self.content
-
-
-
-
-

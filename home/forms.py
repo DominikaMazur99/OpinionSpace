@@ -1,9 +1,10 @@
 from django import forms
+from django.core.exceptions import ValidationError
 from django.forms.widgets import PasswordInput, TextInput
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
-from home.models import UserDetail, Item
+from home.models import UserDetail, Item, Comment
 
 
 class UserForm(forms.ModelForm):
@@ -44,3 +45,9 @@ class AddItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['name', 'description', 'authors', 'year', 'user', 'category']
+
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+
