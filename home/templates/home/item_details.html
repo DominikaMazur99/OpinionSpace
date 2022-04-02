@@ -9,38 +9,36 @@ Item-details
   <div class="row">
     <div class="card col-lg-6 offset-lg-3 mb-3">
       <div class="card-body">
-          <h2 class="card-title my-3">{{ itemId.name }} </h2>
+          <h2 class="card-title my-3">{{ item.name }} </h2>
         </a>
         <div class="text-muted mb-3">
           <div>
-            <span>created: {{ itemId.posted_date|date:"N j Y" }} |</span>
-            <span>updated: {{ itemId.updated_on|timesince }} ago |</span>
-            <span>author: {{ itemId.user }}</span>
+            <span>created: {{ item.posted_date|date:"N j Y" }} |</span>
+            <span>updated: {{ item.updated_on|timesince }} ago |</span>
+            <span>author: {{ item.user }}</span>
           </div>
+            <p class="card-text">{{ item.description}}</p>
 <!--          <div>-->
 <!--            {% for tag in post.tags.all %}-->
 <!--            <span class="badge badge-dark">{{ tag }}</span>-->
 <!--            {% endfor %}-->
 <!--          </div>-->
         </div>
-        <p class="card-text">{{ itemId.description}}</p>
+
         <h1>Comments...</h1>
-        {% if not comments %}
-          No comments yet...<a href="{% url 'home:add_comment' %}">Add one</a>
-        {% else %}
-            <strong>
-              {{ comments.name }} -
-              {{ comments.date_added }}
-            </strong>
-            <br/>
-              {{ comments.content }}
-            <br/><br/>
-            <br>
-            <a class='btn btn-primary' href="{% url 'home:add_comment' %}">Add comment</a>
-        {% endif %}
-        <a class='btn btn-primary' href="{% url 'home:item_view' %}">Return</a>
-      </div>
-    </div>
+        {% for comment in post.comment_set.all %}
+        <b>{{ comment.name }}</b> said <b>{{ comment.created_on|timesince }} ago</b>
+        <p>{{ comment.comment }}</p>
+        {% empty %}
+        <p>Feel free to leave the first comment!</p>
+        {% endfor %}
+        <hr>
+        <h3>Add a comment</h3>
+        <form action="{% url 'home:add-comment' object.pk %}" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" >Submit</button>
+        </form>
   </div>
 </div>
 
