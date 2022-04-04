@@ -58,7 +58,7 @@ class Comment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     class Meta:
-        ordering = ['data_added']
+        ordering = ['-data_added']
 
     def __str__(self):
         return self.content
