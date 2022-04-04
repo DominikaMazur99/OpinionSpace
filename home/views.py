@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.paginator import Paginator
 from django.forms import modelformset_factory
+from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 from django.views import View
@@ -82,21 +83,7 @@ def item_view(request):
     return render(request, "home/item_view.html", ctx)
 
 
-# def item_details(request, id):
-#     item_details = Item.objects.get(id=id)
-#     ctx = {'itemId': item_details}
-#     return render(request, 'home/item_details.html', ctx)
-#
-# def comment(request):
-#     if request.method == 'POST':
-#         form = AddCommentForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('home:home')
-#     else:
-#         form = AddCommentForm()
-#     return render(request, 'home/add_comment.html', {'add_comment': form})
-#
+
 
 class PostDisplay(DetailView):
     model = Item
@@ -129,6 +116,7 @@ class PostComment(LoginRequiredMixin, SingleObjectMixin, FormView):
     def get_success_url(self):
         post = self.get_object()
         return reverse('home:item_details', kwargs={'pk': post.pk}) + '#comments'
+
 
 
 
