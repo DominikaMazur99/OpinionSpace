@@ -12,6 +12,11 @@ Item-details
       <div class="card-body">
           <h2 class="card-title my-3">{{ post.name }} </h2>
         </a>
+        {% if post.user == request.user %}
+        <div class="mt-4 mx-3">
+          <a class="btn btn-danger" href="{% url 'home:delete-item' post.id %}">Delete</a>
+        </div>
+        {% endif %}
         <div class="text-muted mb-3">
           <div>
             <span>created: {{ post.posted_date|date:"N j Y" }} |</span>
@@ -25,6 +30,11 @@ Item-details
         {% for comment in post.comments.all %}
         <b>{{ comment.user }}</b> said <b>{{ comment.data_added|timesince }} ago</b>
         <p>{{ comment.content }}</p>
+        {% if comment.user == request.user %}
+        <div class="mt-4 mx-3">
+          <a class="btn btn-danger" href="{% url 'home:delete-comment' pk=comment.id %}">Delete</a>
+        </div>
+        {% endif %}
         {% empty %}
         <p>Feel free to leave the first comment!</p>
         {% endfor %}

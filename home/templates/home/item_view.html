@@ -21,13 +21,7 @@ Item-view
             <span>created: {{ entry.posted_date|date:"N j Y" }} |</span>
             <span>updated: {{ entry.updated_on|timesince }} ago |</span>
             <span>author: {{ entry.user }}</span>
-          </div>
-<!--          <div>-->
-<!--            {% for tag in post.tags.all %}-->
-<!--            <span class="badge badge-dark">{{ tag }}</span>-->
-<!--            {% endfor %}-->
-<!--          </div>-->
-        </div>
+
         <p class="card-text">{{ entry.description|truncatewords:20 }}</p>
         <a class='btn btn-primary' href="{% url 'home:item_details' entry.id %}">Read more ...</a>
       </div>

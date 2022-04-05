@@ -1,4 +1,6 @@
 from random import random
+
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -7,9 +9,9 @@ from django.core.paginator import Paginator
 from django.forms import modelformset_factory
 from django.http import request
 from django.shortcuts import render, redirect, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import DetailView, FormView
+from django.views.generic import DetailView, FormView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 
 from home.forms import UserForm, AddItemForm, AddCommentForm
@@ -95,6 +97,19 @@ class PostDisplay(DetailView):
         context['form'] = AddCommentForm()
         return context
 
+class DeleteItemView(LoginRequiredMixin, DeleteView):
+    model = Item
+    fields = ["name"]
+    template_name = 'home/delete_item.html'
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been deleted successfully.')
+        return reverse_lazy("home:home")
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
+
 
 class PostComment(LoginRequiredMixin, SingleObjectMixin, FormView):
     model = Item
@@ -118,5 +133,35 @@ class PostComment(LoginRequiredMixin, SingleObjectMixin, FormView):
         return reverse('home:item_details', kwargs={'pk': post.pk}) + '#comments'
 
 
+class CommentUpdateView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    fields = ["content"]
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        update = True
+        context['update'] = update
+
+        return context
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been updated successfully.')
+        return reverse_lazy("home:item_details")
+
+    def get_queryset(self):
+        return self.model.objects.filter(author=self.request.user)
 
 
+class DeleteCommentView(LoginRequiredMixin, DeleteView):
+    model = Comment
+    fields = ["content"]
+    template_name = 'home/delete_comment.html'
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been deleted successfully.')
+        return reverse_lazy("home:home")
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
