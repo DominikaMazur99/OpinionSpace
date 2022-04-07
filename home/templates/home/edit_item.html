@@ -1,0 +1,28 @@
+
+{% block title %}
+Edit-comment
+{% endblock %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-8 offset-2">
+      <h2 class=" my-5">Edit item</h2>
+
+      <form action="{% url 'home:edit-item' object.pk %}" method="POST">
+          {% csrf_token %}
+          {{ form.as_p }}
+        <p>Are you sure you want to edit it?</p>
+        <button type="submet" class="btn btn-danger">Save changes
+        </button>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+
+{% endblock %}
+
