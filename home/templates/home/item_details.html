@@ -28,6 +28,7 @@ Item-details
         {% if comment.user == request.user %}
         <div class="mt-4 mx-3">
           <a class="btn btn-danger" href="{% url 'home:delete-comment' pk=comment.id %}">Delete</a>
+          <a class="btn btn-danger" href="{% url 'home:edit-comment' pk=comment.id %}">Edit</a>
         </div>
         {% endif %}
         {% empty %}
