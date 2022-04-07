@@ -5,18 +5,13 @@ Item-details
 {% endblock %}
 
 {% block content %}
-<h1>Items</h1>
+<h1>{{ post.name }}</h1>
 <div class="container mt-5">
   <div class="row">
     <div class="card col-lg-6 offset-lg-3 mb-3">
       <div class="card-body">
-          <h2 class="card-title my-3">{{ post.name }} </h2>
+          <h2 class="card-title my-3"> </h2>
         </a>
-        {% if post.user == request.user %}
-        <div class="mt-4 mx-3">
-          <a class="btn btn-danger" href="{% url 'home:delete-item' post.id %}">Delete</a>
-        </div>
-        {% endif %}
         <div class="text-muted mb-3">
           <div>
             <span>created: {{ post.posted_date|date:"N j Y" }} |</span>
@@ -48,5 +43,10 @@ Item-details
   </div>
 </div>
 
+ {% if post.user == request.user %}
+  <div class="mt-4 mx-3">
+    <a class="btn btn-danger" href="{% url 'home:delete-item' post.id %}">Delete</a>
+  </div>
+  {% endif %}
 
 {% endblock %}

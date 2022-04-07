@@ -19,8 +19,10 @@ from home.models import Item, Comment
 
 
 def home(request):
-    if request.method == 'GET':
-        return render(request, "home/home.html")
+    items = Item.objects.all()
+    items_list = list(items)
+    ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
+    return render(request, "home/home.html", ctx)
 
 
 def signup(request):
