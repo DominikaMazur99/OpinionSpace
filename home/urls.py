@@ -13,6 +13,7 @@ urlpatterns = [
     path('item-view/<int:pk>/edit', views.ItemEditView.as_view(), name="edit-item"),
     path('comment/<int:pk>/', views.PostComment.as_view(), name='add-comment'),
     path('comment/<int:pk>/delete/', views.DeleteCommentView.as_view(), name='delete-comment'),
+    path('comment/<int:pk>/edit/', views.CommentEditView.as_view(), name='edit-comment'),
     path('login/', views.login_user, name="login"),
     path('logout/', views.logout_user, name="logout"),
 ]

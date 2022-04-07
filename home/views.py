@@ -186,3 +186,16 @@ class DeleteCommentView(LoginRequiredMixin, DeleteView):
 
     def get_queryset(self):
         return self.model.objects.filter(user=self.request.user)
+
+class CommentEditView(LoginRequiredMixin, UpdateView):
+    model = Comment
+    fields = ['content']
+    template_name = 'home/edit_comment.html'
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your comment has been changed successfully.')
+        return reverse_lazy('home:home')
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
