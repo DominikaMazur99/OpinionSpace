@@ -18,11 +18,15 @@ from home.forms import UserForm, AddItemForm, AddCommentForm
 from home.models import Item, Comment
 
 
-def home(request):
-    items = Item.objects.all()
-    items_list = list(items)
-    ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
-    return render(request, "home/home.html", ctx)
+class HomeView(View):
+    def get(self, request):
+        items = Item.objects.all()
+        items_list = list(items)
+        ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
+        return render(request, "home/home.html", ctx)
+
+    def post(self, request):
+        return render(request, 'home/home.html')
 
 
 def signup(request):
@@ -78,6 +82,7 @@ def item(request):
     return render(request, 'home/add_item.html', {'add_item': form})
 
 
+
 def item_view(request):
     items_list = Item.objects.all()
     paginator = Paginator(items_list, 2)
@@ -98,6 +103,20 @@ class PostDisplay(DetailView):
         context = super().get_context_data(**kwargs)
         context['form'] = AddCommentForm()
         return context
+
+
+class ItemEditView(LoginRequiredMixin, UpdateView):
+    model = Item
+    fields = ['name', 'description', 'authors', 'year', 'user', 'category']
+    template_name = 'home/edit_item.html'
+
+    def get_success_url(self):
+        messages.success(
+            self.request, 'Your post has been changed successfully.')
+        return reverse_lazy('home:home')
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user)
 
 class DeleteItemView(LoginRequiredMixin, DeleteView):
     model = Item
