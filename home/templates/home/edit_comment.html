@@ -1,7 +1,4 @@
-
-{% block title %}
-Edit-comment
-{% endblock %}
+{% load crispy_forms_filters %}
 
 {% block content %}
 
@@ -13,7 +10,7 @@ Edit-comment
 
       <form action="{% url 'home:edit-comment' object.pk %}" method="POST">
           {% csrf_token %}
-          {{ form.as_p }}
+          {{ form | crispy }}
         <p>Are you sure you want to edit it?</p>
         <button type="submet" class="btn btn-danger">Save changes
         </button>

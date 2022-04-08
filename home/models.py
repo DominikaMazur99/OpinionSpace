@@ -43,6 +43,8 @@ class Item(models.Model):
     image = models.ImageField(upload_to='', blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='likes')
+    dislikes = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, related_name='dislikes')
 
     class Meta:
         ordering = ['-posted_date']
@@ -62,3 +64,5 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+

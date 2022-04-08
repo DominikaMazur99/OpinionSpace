@@ -21,6 +21,19 @@ Item-details
             <p class="card-text">{{ post.description}}</p>
         </div>
 
+          <div class="d-flex flex-row">
+                <form method="POST" action="{% url 'home:like' post.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button style="background-color: transparent; border: none; box-shadow: none;" type="submit"><i class="far fa-thumbs-up"></i> <span>{{ post.likes.all.count }}</span> like</button>
+                </form>
+                <form method="POST" action="{% url 'home:dislike' post.pk %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button style="background-color: transparent; border: none; box-shadow: none;" type="submit"><i class="far fa-thumbs-down"></i> <span>{{ post.dislikes.all.count }}</span> dislike</button>
+                </form>
+            </div>
+
         <h2>Comments...</h2>
         {% for comment in post.comments.all %}
         <b>{{ comment.user }}</b> said <b>{{ comment.data_added|timesince }} ago</b>

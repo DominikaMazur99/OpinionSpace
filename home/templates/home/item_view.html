@@ -24,8 +24,11 @@ Item-view
 
         <p class="card-text">{{ entry.description|truncatewords:20 }}</p>
         <a class='btn btn-primary' href="{% url 'home:item_details' entry.id %}">Read more ...</a>
+            
       </div>
     </div>
+
+
     {% endfor %}
   </div>
 
