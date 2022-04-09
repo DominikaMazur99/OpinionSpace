@@ -44,7 +44,7 @@ class UserDetailForm(forms.ModelForm):
 class AddItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name', 'description', 'authors', 'year', 'user', 'category']
+        fields = ['name', 'description', 'authors', 'year', 'category']
 
 class AddCommentForm(forms.ModelForm):
     class Meta:

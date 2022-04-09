@@ -17,5 +17,18 @@
 
 {% block content %}
 {% include 'partial/_carousel.html' %}
+
+<p>
+  <button class="badge bg-info text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+    More Books...
+  </button>
+</p>
+<div style="min-height: 120px;">
+  <div class="collapse collapse-horizontal" id="collapseWidthExample">
+    <div class="card card-body" style="width: 300px;">
+      If you want to read more, go to books tab in menu.
+    </div>
+  </div>
+</div>
 {% endblock %}
 

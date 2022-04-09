@@ -1,6 +1,5 @@
 from random import random
 
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -21,7 +20,7 @@ from home.models import Item, Comment
 
 class HomeView(View):
     def get(self, request):
-        items = Item.objects.all()
+        items = Item.objects.all().order_by('-likes')
         items_list = list(items)
         ctx = {'item1': items_list[0], 'item2': items_list[1], 'item3': items_list[2]}
         return render(request, "home/home.html", ctx)

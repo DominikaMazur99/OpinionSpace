@@ -1,6 +1,7 @@
 import pytest
 
 
+
 @pytest.fixture(scope='function')
 def user(db, django_user_model):
     user = django_user_model.objects.create_user(
@@ -9,3 +10,4 @@ def user(db, django_user_model):
         password='TestPass123'
     )
     yield user
+

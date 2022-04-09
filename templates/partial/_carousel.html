@@ -13,23 +13,23 @@
   <div class="carousel-inner">
     <div class="carousel-item active">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient" >
-      <div class="carousel-caption d-none d-md-block">
+      <div class="carousel-caption">
         <h5>{{ item1.name }}</h5>
-        <p>{{ item1.description }}</p>
+        <p>{{ item1.description|truncatewords:20 }}</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient">
       <div class="carousel-caption d-none d-md-block">
          <h5>{{ item2.name }}</h5>
-        <p>{{ item2.description }}</p>
+        <p>{{ item2.description|truncatewords:20 }}</p>
       </div>
     </div>
     <div class="carousel-item">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient">
       <div class="carousel-caption d-none d-md-block">
          <h5>{{ item3.name }}</h5>
-        <p>{{ item3.description }}</p>
+        <p>{{ item3.description|truncatewords:20 }}</p>
       </div>
     </div>
   </div>
