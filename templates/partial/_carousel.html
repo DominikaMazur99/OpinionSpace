@@ -2,8 +2,7 @@
 
 
 {% load static %}
-<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" >
-  <link rel="stylesheet" href="{% static 'styles/main.css' %}">
+<div id="carouselExampleCaptions" class="carousel slide" style="width: 42rem" data-bs-ride="carousel" >
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
     <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
@@ -14,6 +13,9 @@
     <div class="carousel-item active">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient" >
       <div class="carousel-caption">
+        {% if item1.image %}
+        <img class="card-img-top mt-3" style="width: 15rem" src="{{ item1.image.url }}" alt="{{ item1.name }}">
+        {% endif %}
         <h5>{{ item1.name }}</h5>
         <p>{{ item1.description|truncatewords:20 }}</p>
       </div>
@@ -21,6 +23,9 @@
     <div class="carousel-item">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient">
       <div class="carousel-caption d-none d-md-block">
+        {% if item2.image %}
+        <img class="card-img-top mt-3" style="width: 15rem" src="{{ item2.image.url }}" alt="{{ item2.name }}">
+        {% endif %}
          <h5>{{ item2.name }}</h5>
         <p>{{ item2.description|truncatewords:20 }}</p>
       </div>
@@ -28,6 +33,9 @@
     <div class="carousel-item">
       <img src="{% static 'images/gradient.jpg' %}" class="d-block w-100" alt="gradient">
       <div class="carousel-caption d-none d-md-block">
+        {% if item3.image %}
+        <img class="card-img-top mt-3" style="width: 15rem" src="{{ item3.image.url }}" alt="{{ item3.name }}">
+        {% endif %}
          <h5>{{ item3.name }}</h5>
         <p>{{ item3.description|truncatewords:20 }}</p>
       </div>

@@ -23,12 +23,14 @@
     More Books...
   </button>
 </p>
-<div style="min-height: 120px;">
+<div style="">
   <div class="collapse collapse-horizontal" id="collapseWidthExample">
     <div class="card card-body" style="width: 300px;">
       If you want to read more, go to books tab in menu.
     </div>
+      <a href="{% url 'home:item_view' %}" class="btn btn-primary">Go to Books</a>
   </div>
 </div>
 {% endblock %}
+
 
