@@ -4,34 +4,29 @@ Item-view
 {% endblock %}
 
 {% block content %}
-<h1>Items</h1>
-<div class="container mt-5">
-  <div class="row">
-    {% for entry in items %}
-    <div class="card col-lg-6 offset-lg-3 mb-3">
-      {% if entry.image %}
-      <img class="card-img-top mt-3" src="{{ entry.image.url }}" alt="{{ entry.name }}">
-      {% endif %}
-      <div class="card-body">
-        <a href="{% url 'home:item_view' %}">
-          <h2 class="card-title my-3">{{ entry.name }} </h2>
-        </a>
+  <div class="container mt-5">
+    <div class="row">
+      {% for entry in items %}
+      <div class="card col-lg-6 offset-lg-3 mb-3">
+        {% if entry.image %}
+        <img class="card-img-top mt-3" src="{{ entry.image.url }}" alt="{{ entry.name }}">
+        {% endif %}
+        <div class="card-body">
+          <a href="{% url 'home:item_view' %}">
+            <h2 class="card-title my-3">{{ entry.name }} </h2>
+          </a>
         <div class="text-muted mb-3">
-          <div>
+            <p><strong>{{ entry.category }}</strong></p>
             <span>created: {{ entry.posted_date|date:"N j Y" }} |</span>
             <span>updated: {{ entry.updated_on|timesince }} ago |</span>
             <span>author: {{ entry.user }}</span>
-
         <p class="card-text">{{ entry.description|truncatewords:20 }}</p>
         <a class='btn btn-primary' href="{% url 'home:item_details' entry.id %}">Read more ...</a>
-            
       </div>
     </div>
-
-
-    {% endfor %}
   </div>
 
+{% endfor %}
   <!-- Pagination -->
   <div class="row">
     <nav class="col-lg-6 offset-lg-3 mt-4 d-flex justify-content-center">

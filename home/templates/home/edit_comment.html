@@ -1,25 +1,22 @@
+{% extends 'base.html' %}
 {% load crispy_forms_filters %}
 
-{% block content %}
+{% block title %}
+Edit-comment
+{% endblock %}
 
+{% block container %}
 
-<div class="container">
-  <div class="row">
-    <div class="col-8 offset-2">
-      <h2 class=" my-5">Edit comment</h2>
+    <form action="" method="POST">
 
-      <form action="{% url 'home:edit-comment' object.pk %}" method="POST">
-          {% csrf_token %}
-          {{ form | crispy }}
-        <p>Are you sure you want to edit it?</p>
-        <button type="submet" class="btn btn-danger">Save changes
-        </button>
+        {% csrf_token %}
 
-      </form>
-    </div>
-  </div>
-</div>
+        {{ form | crispy }}
+
+        <button type="submit" class="btn btn-primary">Save</button>
+
+    </form>
+
 
 
 {% endblock %}
-
